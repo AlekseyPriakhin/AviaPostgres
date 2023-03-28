@@ -22,7 +22,7 @@ public class AviaDbContext : DbContext
 
         modelBuilder.Entity<Company>(entity =>
         {
-            entity.HasIndex(e => e.Name);
+            //entity.HasIndex(e => e.Name);
         });
         
         modelBuilder.Entity<Flight>(entity =>

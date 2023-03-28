@@ -2,42 +2,38 @@
 using Microsoft.EntityFrameworkCore;
 using PostgresPerfomanceTest.Data;
 using PostgresPerfomanceTest.DTO;
+using PostgresPerfomanceTest.Services;
 
 namespace PostgresPerfomanceTest.Controllers;
 
 [ApiController,Route("/company")]
 public class CompanyController : ControllerBase
 {
-    private readonly AviaDbContext _context;
-    public CompanyController(AviaDbContext context)
+    private readonly ICompanyService _service;
+    public CompanyController(ICompanyService service)
     {
-        _context = context;
+        _service = service;
     }
 
     [HttpGet("by_name")]
     public async Task<IActionResult> GetCompaniesByName(string name)
     {
-        var items = await _context.Companies.Where(e => e.Name == name)
-            .ToListAsync();
+        var items = await _service.GetCompaniesByName(name);
 
-        return Ok(items.Take(100));
+        return Ok(items);
     }
     
     [HttpGet("by_country")]
     public async Task<IActionResult> GetCompaniesByCountry(string country)
     {
-        var items = await _context.Companies.Where(e => e.Country == country).Include(e=>e.Planes)
-            .ThenInclude(e=>e.Flights)
-            .ToListAsync();
-
-        return Ok(items.Take(100));
+        var items = await _service.GetCompaniesByCountry(country);
+        return Ok(items);
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get(int id)
+    public async Task<IActionResult> GetCompany(int id)
     {
-        var company = await _context.Companies.Where(e=>e.CompanyId == id)
-            .FirstOrDefaultAsync();
+        var company = await _service.GetCompany(id);
         if (company is null)
         {
             return NotFound();
@@ -49,44 +45,22 @@ public class CompanyController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post(CompanyDto dto)
     {
-        var company = new Company
-        {
-            Name = dto.Name,
-            Code = dto.Code,
-            Country = dto.Country,
-            YearOfFoundation = dto.YearOfFoundation
-        };
-
-        _context.Companies.Add(company);
-        await _context.SaveChangesAsync();
-
-        return await Get(company.CompanyId);
+        var company = await _service.AddCompany(dto);
+        return Ok(company);
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id,CompanyDto dto)
     {
-        var company = await _context.Companies.FindAsync(id);
-        if (company is null) return NotFound();
-
-        company.Name = dto.Name;
-        company.Code = dto.Code;
-        company.YearOfFoundation = dto.YearOfFoundation;
-        company.Country = dto.Country;
-
-        _context.Companies.Update(company);
-        await _context.SaveChangesAsync();
+        dto.CompanyId = id;
+        var company = await _service.UpdateCompany(dto);
         return Ok(company);
     }
     
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var company = await _context.Companies.FindAsync(id);
-        if (company is null) return NotFound();
-        
-        _context.Companies.Remove(company);
-        await _context.SaveChangesAsync();
+        await _service.DeleteCompany(id);
         return Ok();
     }
 

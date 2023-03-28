@@ -46,8 +46,6 @@ namespace PostgresPerfomanceTest.Migrations
 
                     b.HasKey("CompanyId");
 
-                    b.HasIndex("Name");
-
                     b.ToTable("Companies");
                 });
 

@@ -2,30 +2,30 @@
 using Microsoft.EntityFrameworkCore;
 using PostgresPerfomanceTest.Data;
 using PostgresPerfomanceTest.DTO;
+using PostgresPerfomanceTest.Services;
 
 namespace PostgresPerfomanceTest.Controllers;
 
 [ApiController,Route("/flight")]
 public class FlightController : ControllerBase
 {
-    private readonly AviaDbContext _context;
-
-    public FlightController(AviaDbContext context)
+    private readonly IFlightService _service;
+    public FlightController(IFlightService service)
     {
-        _context = context;
+        _service = service;
     }
     
     [HttpGet]
     public async Task<IActionResult> GetFlights()
     {
-        var items = await _context.Flights.ToListAsync();
-        return Ok(items.Take(100));
+        var items = await _service.GetFlights();
+        return Ok(items);
     }
     
     [HttpGet("{id}")]
     public async Task<IActionResult> GetFlight(int id)
     {
-        var flight = await _context.Flights.FindAsync(id);
+        var flight = await _service.GetFlight(id);
         if (flight is null) return NotFound();
         return Ok(flight);
     }
@@ -33,41 +33,25 @@ public class FlightController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post(FlightDto dto)
     {
-        var flight = new Flight
-        {
-            From = dto.From,
-            To = dto.To,
-            PlaneId = dto.PlaneId
-        };
-
-        _context.Flights.Add(flight);
-        await _context.SaveChangesAsync();
-
-        return Ok(await GetFlight(flight.FlightId));
+        var newFlight = await _service.AddFlight(dto);
+        return Ok(newFlight);
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, FlightDto dto)
     {
-        var flight = await _context.Flights.FindAsync(id);
-        if (flight is null) return NotFound();
-        flight.From = dto.From;
-        flight.To = dto.To;
+        dto.FlightId = id;
 
-        _context.Flights.Update(flight);
-        await _context.SaveChangesAsync();
-        return Ok(await GetFlight(id));
+        var flight =  await _service.UpdateFlight(dto);
+        
+        return Ok(flight);
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var flight = await _context.Flights.FindAsync(id);
-        if (flight is null) return NotFound();
-
-        _context.Flights.Remove(flight);
-        await _context.SaveChangesAsync();
-        return Ok("Deleted");
+        await _service.DeleteFlight(id);
+        return Ok();
     }
     
 }

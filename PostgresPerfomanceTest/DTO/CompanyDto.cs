@@ -2,7 +2,7 @@
 
 public class CompanyDto
 {
-    public int? CompanyId { get; set; }
+    public int CompanyId { get; set; }
     public string Name { get; set; }
     public string Code { get; set; }
     public string Country  { get; set; }

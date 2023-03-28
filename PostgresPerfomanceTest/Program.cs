@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PostgresPerfomanceTest.Data;
+using PostgresPerfomanceTest.DTO;
+using PostgresPerfomanceTest.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<IFlightService, FlightService>();
+builder.Services.AddScoped<IPlaneService, PlaneService>();
 
 var connectionString = builder.Configuration.GetConnectionString("Db");
 builder.Services.AddDbContext<AviaDbContext>(options =>

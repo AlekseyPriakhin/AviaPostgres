@@ -1,12 +1,17 @@
-﻿namespace PostgresPerfomanceTest.Data;
+﻿using System.Diagnostics;
+
+namespace PostgresPerfomanceTest.Data;
 
 public static class SeedData
 {
     public static async Task Initialize(IServiceProvider serviceProvider)
     {
+        
         var context = serviceProvider.GetRequiredService<AviaDbContext>();
         if (!context.Planes.Any())
         {
+            var sw = new Stopwatch();
+                    sw.Start();
             for (int i = 0; i < 100000; i++)
             {
                 var company = new Company
@@ -24,14 +29,7 @@ public static class SeedData
                         "Aurora",
                         "Condor",
                         "Delta",
-                        "E",
-                        "F",
-                        "G",
-                        "H",
-                        "M",
-                        "K",
-                        "L"
-                    }[i%10],
+                    }[i%3],
                     Code = new List<string>
                     {
                         "BT",
@@ -94,6 +92,10 @@ public static class SeedData
                 
             }
             await context.SaveChangesAsync();
+            sw.Stop();
+            Console.WriteLine($"-----------{sw.Elapsed}-------------");
         }
+        
+        
     }
 }
