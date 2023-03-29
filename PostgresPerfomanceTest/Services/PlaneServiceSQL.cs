@@ -4,11 +4,11 @@ using PostgresPerfomanceTest.DTO;
 
 namespace PostgresPerfomanceTest.Services;
 
-public class PlaneService : IPlaneService
+public class PlaneServiceSQL : IPlaneService
 {
     private readonly AviaDbContext _context;
 
-    public PlaneService(AviaDbContext context)
+    public PlaneServiceSQL(AviaDbContext context)
     {
         _context = context;
     }

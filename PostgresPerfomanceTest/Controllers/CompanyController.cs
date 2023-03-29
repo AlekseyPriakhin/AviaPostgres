@@ -15,6 +15,14 @@ public class CompanyController : ControllerBase
         _service = service;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetCompanies()
+    {
+        var items = await _service.GetCompanies();
+
+        return Ok(items);
+    }
+    
     [HttpGet("by_name")]
     public async Task<IActionResult> GetCompaniesByName(string name)
     {
