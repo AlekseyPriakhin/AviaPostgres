@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "uggooUXpPxdFEF9TZeZ7JVcEuocizINGmWFQE+XlV8dOgENisxWbDYLacx173Zgu6ybFqAf7HfFiWtjxxWwghg==",
+  "dgSpecHash": "I2kpWO7IZvnhV6IFkNlKyOu1OJWP702iugLL4rbZDJQ6cROLtNl/+VN/HL4P9JJ7mrkY/b/IVdPXmAwXlAVnYg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danya\\Source\\Repos\\AviaPostgres\\PostgresPerfomanceTest\\PostgresPerfomanceTest.csproj",
+  "projectFilePath": "C:\\Users\\danya\\source\\repos\\AviaPostgres\\PostgresPerfomanceTest\\PostgresPerfomanceTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danya\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\danya\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",

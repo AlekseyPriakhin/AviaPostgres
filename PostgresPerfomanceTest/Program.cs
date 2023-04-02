@@ -34,6 +34,7 @@ using (var scope = app.Services.CreateScope())
 {
     var serviceProvider = scope.ServiceProvider;
     await SeedData.Initialize(serviceProvider);
+    await SeedData.InitializeMongo(serviceProvider);
 }
 
 

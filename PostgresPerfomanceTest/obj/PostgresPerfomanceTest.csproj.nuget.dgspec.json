@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\danya\\Source\\Repos\\AviaPostgres\\PostgresPerfomanceTest\\PostgresPerfomanceTest.csproj": {}
+    "C:\\Users\\danya\\source\\repos\\AviaPostgres\\PostgresPerfomanceTest\\PostgresPerfomanceTest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\danya\\Source\\Repos\\AviaPostgres\\PostgresPerfomanceTest\\PostgresPerfomanceTest.csproj": {
+    "C:\\Users\\danya\\source\\repos\\AviaPostgres\\PostgresPerfomanceTest\\PostgresPerfomanceTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\danya\\Source\\Repos\\AviaPostgres\\PostgresPerfomanceTest\\PostgresPerfomanceTest.csproj",
+        "projectUniqueName": "C:\\Users\\danya\\source\\repos\\AviaPostgres\\PostgresPerfomanceTest\\PostgresPerfomanceTest.csproj",
         "projectName": "PostgresPerfomanceTest",
-        "projectPath": "C:\\Users\\danya\\Source\\Repos\\AviaPostgres\\PostgresPerfomanceTest\\PostgresPerfomanceTest.csproj",
+        "projectPath": "C:\\Users\\danya\\source\\repos\\AviaPostgres\\PostgresPerfomanceTest\\PostgresPerfomanceTest.csproj",
         "packagesPath": "C:\\Users\\danya\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\danya\\Source\\Repos\\AviaPostgres\\PostgresPerfomanceTest\\obj\\",
+        "outputPath": "C:\\Users\\danya\\source\\repos\\AviaPostgres\\PostgresPerfomanceTest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\danya\\AppData\\Roaming\\NuGet\\NuGet.Config",
