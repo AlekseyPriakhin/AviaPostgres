@@ -1,19 +1,25 @@
 using Microsoft.EntityFrameworkCore;
 using PostgresPerfomanceTest.Data;
+using PostgresPerfomanceTest.Data.MongoContext;
 using PostgresPerfomanceTest.Services;
+using PostgresPerfomanceTest.Services.MongoServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.Configure<MongoSettings>(
+    builder.Configuration.GetSection("MongoSettings"));
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ICompanyService, CompanyServiceSQL>();
 builder.Services.AddScoped<IFlightService, FlightServiceSQL>();
 builder.Services.AddScoped<IPlaneService, PlaneServiceSQL>();
+
+builder.Services.AddSingleton<IMongoContext, MongoContext>();
+builder.Services.AddTransient<ICompanyRepository, CompanyRepository>();
 
 var connectionString = builder.Configuration.GetConnectionString("Db");
 builder.Services.AddDbContext<AviaDbContext>(options =>
